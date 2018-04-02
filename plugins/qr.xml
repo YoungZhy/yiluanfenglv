@@ -1,0 +1,81 @@
+<!--by SLdragon qq群551278936-->
+<krpano>
+
+	<plugin name="qrcode" keep="true"
+	        url="qrcode.js"
+			onloaded="addQR();"
+	/>
+
+	<layer name="QR_btn" devices="desktop" url="../skin/share.png" keep="true" align="topright" x="5" y="5" scale="0.2"
+		onclick="tween(layer[box].bgalpha,0.8,0.25);
+				tween(layer[box1].alpha,1,0.25);
+				set(layer[box].visible,true);"
+	 />
+
+	<layer name="box" type="container" width="100%" height="100%" bgcapture="true" children="false" keep="true" align="center" bgcolor="0x000000" bgalpha="0" visible="false" zorder="20" onclick="set(layer[box].visible,false);tween(layer[box].bgalpha,0,0.25);tween(layer[box1].alpha,0,0.25);" >
+		<layer name="box1" type="container" width="300" height="270" align="center" y="-50" alpha="0.0"  >
+			<layer name="title" url="%SWFPATH%/plugins/textfield.swf" align="top" background="false" html="手机扫码观看（微信、QQ）" css="font-size:18px;font-family:Arial;color:#FFFFFF" />
+			<layer name="QR" align="bottom"  alpha="1" scale="0.5" zorder="30"  />
+		</layer>		
+	</layer>
+	
+	<layer name="box_1" type="container" width="100%" height="100%" keep="true" bgcapture="true" children="false" align="center" bgcolor="0x000000" bgalpha="0.8" visible="false" zorder="20" onclick="set(visible,false)" >
+		<layer name="tip" url="%SWFPATH/plugins/textfield.swf%" capture="false" align="top" y="80" background="false" html="点击右上角分享给别人（微信、QQ）" css="font-size:18px;font-family:Arial;color:#FFFFFF" />
+	</layer>
+
+
+	<action  name="addQR">
+		 plugin[qrcode].get_qr_image(new_url);
+		 set(layer[QR].url,get(new_url));
+	</action>
+	
+	<!-- <events name="QRResizeEvent" 
+			onresize="onResizeAction()"
+			keep="true"
+	/>
+	
+	<action name="onResizeAction">
+		if(layer[QR].isMiddle,
+		
+			def(a,number,calc(stagewidth/layer[QR].width));
+			def(b,number,calc(stageheight/layer[QR].height));
+			Math.min(scaleMax,get(a),get(b));
+			
+			set(layer[QR].scale,get(scaleMax));
+			
+			def(stageW,number,get(stagewidth));
+			def(QRW,number,get(layer[QR].width));
+			set(layer[QR].x,calc((stageW-QRW*scaleMax)/2));
+		)
+	</action> -->
+	
+	<!-- <action name="tweenCenter">
+		
+		trace(stagewidth);
+		trace(layer[%1].width);
+		def(a,number,calc(stagewidth/layer[%1].width));
+		def(b,number,calc(stageheight/layer[%1].height));
+		Math.min(scaleMax,get(a),get(b));
+		trace(get(scaleMax));
+		tween(layer[%1].alpha,1);
+		tween(layer[%1].scale,get(scaleMax));
+		
+		def(stageW,number,get(stagewidth));
+		def(QRW,number,get(layer[%1].width));
+		tween(layer[%1].x,calc((stageW-QRW*scaleMax)/2));	
+		
+		set(layer[%1].onclick,"tweenRight(get(name))");
+		set(layer[%1].isMiddle,"true");
+	</action>
+	
+	
+	<action name="tweenRight">
+		tween(layer[%1].alpha,0.25);
+		tween(layer[%1].scale,0.1);
+		tween(layer[%1].x,10);	
+		
+		set(layer[%1].onclick,"tweenCenter(get(name))");	
+		set(layer[%1].isMiddle,"false");		
+	</action> -->
+
+</krpano>
